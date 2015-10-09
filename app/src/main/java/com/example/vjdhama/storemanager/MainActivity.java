@@ -2,12 +2,10 @@ package com.example.vjdhama.storemanager;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -26,17 +24,12 @@ public class MainActivity extends AppCompatActivity {
         ListView items_list_view = (ListView) findViewById(R.id.items_list_view);
 
 
-        ArrayList<Item> itemsArrayList = new ArrayList<Item>();
-        itemsArrayList.add(new Item("One", "One", new Date()));
-        items_list_view.setAdapter(new ItemAdapter(this.getBaseContext(),itemsArrayList));
+        ArrayList<Item> items = new ArrayList<Item>();
+        items.add(new Item("One", "One", new Date()));
+        items.add(new Item("Two", "Two", new Date()));
+        items.add(new Item("Three", "Three", new Date()));
+        items_list_view.setAdapter(new ItemAdapter(this.getBaseContext(), items));
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override

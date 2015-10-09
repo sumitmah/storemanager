@@ -16,11 +16,9 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     Context context;
 
     public ItemAdapter(Context context, ArrayList<Item> items) {
-        super(context, R.layout.item_view);
+        super(context, R.layout.item_view, items);
         this.context = context;
     }
-
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -44,7 +42,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         }
         // Populate the data into the template view using the data object
         viewHolder.name.setText(item.getName());
-        viewHolder.expiry.setText((CharSequence) item.getExpiry());
+//        viewHolder.expiry.setText((CharSequence) item.getExpiry());
         viewHolder.quantity.setText(item.getQuantity());
 
         return convertView;
