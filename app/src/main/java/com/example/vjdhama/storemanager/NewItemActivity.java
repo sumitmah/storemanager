@@ -43,13 +43,12 @@ public class NewItemActivity extends AppCompatActivity {
             }
         };
 
-        itemExpiryEditText.setOnTouchListener(new View.OnTouchListener() {
+        itemExpiryEditText.setOnClickListener(new View.OnClickListener() {
                                                   @Override
-                                                  public boolean onTouch(View v, MotionEvent event) {
+                                                  public void onClick(View v) {
                                                       new DatePickerDialog(NewItemActivity.this, date, myCalendar
                                                               .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                                                               myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                                                      return false;
                                                   }
                                               }
         );
