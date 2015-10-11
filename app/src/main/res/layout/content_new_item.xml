@@ -17,17 +17,28 @@
     <EditText
         android:id="@+id/item_name_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="Item Name" />
 
     <EditText
         android:id="@+id/item_quantity_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="Quantity" />
 
     <EditText
         android:id="@+id/item_expiry_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textIsSelectable="true" />
+        android:textIsSelectable="true"
+        android:hint="Expiry Date"/>
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="#3498DB"
+        android:text="Add Item"
+        android:layout_marginTop="20dp"
+        android:textColor="#FFF"></Button>
 
 </LinearLayout>

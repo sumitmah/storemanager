@@ -53,6 +53,7 @@ public class NewItem extends AppCompatActivity {
                                                   }
                                               }
         );
+
     }
 
     private void findViewsById() {
