@@ -1,13 +1,17 @@
 package com.example.vjdhama.storemanager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.vjdhama.storemanager.realm.models.Item;
@@ -30,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        load_items();
+        ListView itemsListView = (ListView) findViewById(R.id.items_list_view);
+        ItemAdapter adapter = load_items(itemsListView);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,16 +45,32 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        itemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ItemAdapter adapter = (ItemAdapter)parent.getAdapter();
+                Item item = (Item) adapter.getItem(position);
+
+                Intent intent = new Intent(MainActivity.this, ShowItemActivity.class);
+                intent.putExtra("item", item.getName());
+                startActivity(intent);
+
+                Log.d("adapter", item.getName());
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        load_items();
+        ListView itemsListView = (ListView) findViewById(R.id.items_list_view);
+        load_items(itemsListView);
     }
 
-    private void load_items() {
-        ListView items_list_view = (ListView) findViewById(R.id.items_list_view);
+    private ItemAdapter load_items(ListView itemsListView) {
         ArrayList<Item> items = new ArrayList<Item>();
 
         realm = Realm.getInstance(this);
@@ -60,7 +80,9 @@ public class MainActivity extends AppCompatActivity {
             items.add(item);
         }
 
-        items_list_view.setAdapter(new ItemAdapter(this.getBaseContext(), items));
+        ItemAdapter adapter = new ItemAdapter(this.getBaseContext(), items);
+        itemsListView.setAdapter(adapter);
+        return adapter;
     }
 
     @Override
@@ -72,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.action_settings) {
             return true;
         }
