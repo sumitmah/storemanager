@@ -10,8 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
-import com.example.vjdhama.storemanager.sqlite.helper.DatabaseAdapter;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -44,9 +42,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-        DatabaseAdapter database_adapter = new DatabaseAdapter(getApplicationContext());
-        database_adapter.getWritableDatabase();
     }
 
     @Override
