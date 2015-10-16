@@ -10,10 +10,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.example.vjdhama.storemanager.realm.models.Item;
+
 import java.util.ArrayList;
 import java.util.Date;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 public class MainActivity extends AppCompatActivity {
+
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        ListView items_list_view = (ListView) findViewById(R.id.items_list_view);
 
-
-        ArrayList<Item> items = new ArrayList<Item>();
-
-        items.add(new Item("One", "One", new Date()));
-        items.add(new Item("Two", "Two", new Date()));
-        items.add(new Item("Three", "Three", new Date()));
-
-        items_list_view.setAdapter(new ItemAdapter(this.getBaseContext(), items));
+        load_items();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +41,26 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        load_items();
+    }
+
+    private void load_items() {
+        ListView items_list_view = (ListView) findViewById(R.id.items_list_view);
+        ArrayList<Item> items = new ArrayList<Item>();
+
+        realm = Realm.getInstance(this);
+        RealmResults<Item> results = realm.where(Item.class).findAll();
+
+        for (Item item : results) {
+            items.add(item);
+        }
+
+        items_list_view.setAdapter(new ItemAdapter(this.getBaseContext(), items));
     }
 
     @Override

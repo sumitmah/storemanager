@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.vjdhama.storemanager.realm.models.Item;
+
 import java.util.ArrayList;
 
 /**
