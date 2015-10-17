@@ -1,6 +1,5 @@
 package com.example.vjdhama.storemanager;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,14 +9,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.vjdhama.storemanager.realm.models.Item;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -35,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         ListView itemsListView = (ListView) findViewById(R.id.items_list_view);
-        ItemAdapter adapter = load_items(itemsListView);
+        load_items(itemsListView);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,9 +77,7 @@ public class MainActivity extends AppCompatActivity {
             items.add(item);
         }
 
-        ItemAdapter adapter = new ItemAdapter(this.getBaseContext(), items);
-        itemsListView.setAdapter(adapter);
-        return adapter;
+        itemsListView.setAdapter(new ItemAdapter(this.getBaseContext(), items));
     }
 
     @Override
