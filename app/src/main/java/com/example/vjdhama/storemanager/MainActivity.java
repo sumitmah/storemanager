@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         load_items(itemsListView);
     }
 
-    private ItemAdapter load_items(ListView itemsListView) {
+    private void load_items(ListView itemsListView) {
         ArrayList<Item> items = new ArrayList<Item>();
 
         realm = Realm.getInstance(this);
