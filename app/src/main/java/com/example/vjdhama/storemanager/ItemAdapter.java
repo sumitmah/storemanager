@@ -1,6 +1,7 @@
 package com.example.vjdhama.storemanager;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,10 @@ import android.widget.TextView;
 import com.example.vjdhama.storemanager.realm.models.Item;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
-/**
- * Created by vjdhama on 09/10/15.
- */
+
 public class ItemAdapter extends ArrayAdapter<Item> {
     Context context;
 
@@ -24,10 +25,10 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
         Item item = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
-        ItemViewHolder viewHolder; // view lookup cache stored in tag
+
+        ItemViewHolder viewHolder;
+        
         if (convertView == null) {
             viewHolder = new ItemViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -42,10 +43,10 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         } else {
             viewHolder = (ItemViewHolder) convertView.getTag();
         }
-        // Populate the data into the template view using the data object
-        viewHolder.name.setText(item.getName());
-//        viewHolder.expiry.setText((CharSequence) item.getExpiry());
-        viewHolder.quantity.setText(item.getQuantity());
+
+        viewHolder.setName(item.getName());
+        viewHolder.setQuantity(item.getQuantity());
+        viewHolder.setExpiry(item.getExpiryDate());
 
         return convertView;
     }
@@ -55,4 +56,24 @@ class ItemViewHolder {
     TextView name;
     TextView expiry;
     TextView quantity;
+
+    public void setName(String name) {
+        this.name.setText(name);
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity.setText(quantity);
+    }
+
+    public void setExpiry(Date expiryDate) {
+        Calendar c = Calendar.getInstance();
+        String relativeExpiryTimeSpan = DateUtils.getRelativeTimeSpanString(expiryDate.getTime(),
+                c.getTimeInMillis(), DateUtils.MINUTE_IN_MILLIS).toString();
+
+        if (c.getTime().compareTo(expiryDate) <= 0) {
+            this.expiry.setText("Will be expired " + relativeExpiryTimeSpan);
+        } else {
+            this.expiry.setText("Expired " + relativeExpiryTimeSpan);
+        }
+    }
 }
